@@ -1,10 +1,20 @@
 import express from "express";
 import axios from "axios";
+import configEnv from "../services/env.mjs";
 
+// App initialization ------------------------------
 const app = express();
+
+// App Configurations --------------------------------
+const port = configEnv.port || 8080;
 app.use(express.json());
 
-const { WEBHOOK_VERIFY_TOKEN, GRAPH_API_TOKEN, PORT } = process.env;
+const {
+  wpVersion, // API_VERSION
+  wpPhone, // BUSINESS_PHONE
+  wpChatToken, // WEBHOOK_VERIFY_TOKEN
+  wpToken // API_TOKEN
+} = configEnv;
 
 app.post("/webhook", async (req, res) => {
   // log incoming messages
@@ -25,7 +35,7 @@ app.post("/webhook", async (req, res) => {
       method: "POST",
       url: `https://graph.facebook.com/v18.0/${business_phone_number_id}/messages`,
       headers: {
-        Authorization: `Bearer ${GRAPH_API_TOKEN}`,
+        Authorization: `Bearer ${wpToken}`,
       },
       data: {
         messaging_product: "whatsapp",
@@ -42,7 +52,7 @@ app.post("/webhook", async (req, res) => {
       method: "POST",
       url: `https://graph.facebook.com/v18.0/${business_phone_number_id}/messages`,
       headers: {
-        Authorization: `Bearer ${GRAPH_API_TOKEN}`,
+        Authorization: `Bearer ${wpToken}`,
       },
       data: {
         messaging_product: "whatsapp",
@@ -63,7 +73,7 @@ app.get("/webhook", (req, res) => {
   const challenge = req.query["hub.challenge"];
 
   // check the mode and token sent are correct
-  if (mode === "subscribe" && token === WEBHOOK_VERIFY_TOKEN) {
+  if (mode === "subscribe" && token === wpChatToken) {
     // respond with 200 OK and challenge token from the request
     res.status(200).send(challenge);
     console.log("Webhook verified successfully!");
@@ -78,6 +88,6 @@ app.get("/", (req, res) => {
 Checkout README.md to start.</pre>`);
 });
 
-app.listen(PORT, () => {
-  console.log(`Server is listening on port: ${PORT}`);
+app.listen(port, () => {
+  console.log(`Server is listening on port: ${port}`);
 });
