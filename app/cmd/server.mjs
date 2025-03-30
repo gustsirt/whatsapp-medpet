@@ -26,14 +26,10 @@ app.post("/webhook", async (req, res) => {
 
   // check if the incoming message contains text
   if (message?.type === "text") {
-    // extract the business number to send the reply from it
-    const business_phone_number_id =
-      req.body.entry?.[0].changes?.[0].value?.metadata?.phone_number_id;
-
     // send a reply message as per the docs here https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages
     await axios({
       method: "POST",
-      url: `https://graph.facebook.com/v18.0/${business_phone_number_id}/messages`,
+      url: `https://graph.facebook.com/${wpVersion}/${wpPhone}/messages`,
       headers: {
         Authorization: `Bearer ${wpToken}`,
       },
@@ -50,7 +46,7 @@ app.post("/webhook", async (req, res) => {
     // mark incoming message as read
     await axios({
       method: "POST",
-      url: `https://graph.facebook.com/v18.0/${business_phone_number_id}/messages`,
+      url: `https://graph.facebook.com/${wpVersion}/${wpPhone}/messages`,
       headers: {
         Authorization: `Bearer ${wpToken}`,
       },
