@@ -7,7 +7,7 @@ const configEnv = {
 
   // Whatsapp
   wpVersion: process.env.API_VERSION,
-  wpPhone: process.env.BUSINESS_PHONE,
+  wpPhone: process.env.BUSINESS_PHONE, // Phone_number_ID
   wpToken: process.env.API_TOKEN,
   wpChatToken: process.env.WEBHOOK_VERIFY_TOKEN,
 }
