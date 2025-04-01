@@ -48,13 +48,16 @@ router
         },
         data: {
           messaging_product: "whatsapp",
-          to: message.from,
+          // to: message.from, // version original que daba error
+          to: message.from.replace(/^549/, "54"), // Corrige el formato si es necesario
           text: { body: "Echo: " + message.text.body },
           context: {
             message_id: message.id, // shows the message as a reply to the original user message
           },
         },
       });
+
+      console.log("celular: ", message.from);
 
       // mark incoming message as read
       await axios({
