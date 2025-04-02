@@ -1,5 +1,5 @@
 import { Router } from "express";
-import configEnv from "../../services/env.js";
+import configEnv from "../../../config/env.js";
 import axios from "axios";
 
 const router = Router();
