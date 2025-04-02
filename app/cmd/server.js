@@ -1,5 +1,5 @@
 import express from "express";
-import configEnv from "../services/env.js";
+import configEnv from "../config/env.js";
 import appRouter from '../modules/routes.js'
 
 // App initialization ------------------------------
