@@ -5,10 +5,10 @@ import axios from "axios";
 const router = Router();
 
 const {
-  wpVersion, // API_VERSION
-  wpPhone, // BUSINESS_PHONE
-  wpChatToken, // WEBHOOK_VERIFY_TOKEN
-  wpToken // API_TOKEN
+  API_VERSION, // API_VERSION
+  BUSINESS_PHONE, // BUSINESS_PHONE
+  WEBHOOK_VERIFY_TOKEN, // WEBHOOK_VERIFY_TOKEN
+  API_TOKEN // API_TOKEN
 } = configEnv;
 
 // http://localhost:8080/webhook/
@@ -19,7 +19,7 @@ router
     const challenge = req.query["hub.challenge"];
 
     // check the mode and token sent are correct
-    if (mode === "subscribe" && token === wpChatToken) {
+    if (mode === "subscribe" && token === WEBHOOK_VERIFY_TOKEN) {
       // respond with 200 OK and challenge token from the request
       res.status(200).send(challenge);
       console.log("Webhook verified successfully!");
@@ -42,9 +42,9 @@ router
       // send a reply message as per the docs here https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages
       await axios({
         method: "POST",
-        url: `https://graph.facebook.com/${wpVersion}/${wpPhone}/messages`,
+        url: `https://graph.facebook.com/${API_VERSION}/${BUSINESS_PHONE}/messages`,
         headers: {
-          Authorization: `Bearer ${wpToken}`,
+          Authorization: `Bearer ${API_TOKEN}`,
         },
         data: {
           messaging_product: "whatsapp",
@@ -62,9 +62,9 @@ router
       // mark incoming message as read
       await axios({
         method: "POST",
-        url: `https://graph.facebook.com/${wpVersion}/${wpPhone}/messages`,
+        url: `https://graph.facebook.com/${API_VERSION}/${BUSINESS_PHONE}/messages`,
         headers: {
-          Authorization: `Bearer ${wpToken}`,
+          Authorization: `Bearer ${API_TOKEN}`,
         },
         data: {
           messaging_product: "whatsapp",
