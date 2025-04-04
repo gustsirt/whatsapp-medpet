@@ -1,6 +1,6 @@
 # API WHATSAPP - MEDPET
 
-Basada en: [Platzi](https://platzi.com/cursos/whatsapp-api/)
+Basada en: [Platzi](https://platzi.com/cursos/whatsapp-api/) Whatsapp
 
 
 En la configuración de la APP en Meta Developer:
