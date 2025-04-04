@@ -16,4 +16,4 @@ En la configuración de la APP en Meta Developer:
     * message_template_status_update
     * message_template_quality_update
 
-El proyecto esta modularizado
+Se implementa modelo vista controlador.
