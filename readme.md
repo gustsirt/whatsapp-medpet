@@ -17,3 +17,5 @@ En la configuración de la APP en Meta Developer:
     * message_template_quality_update
 
 Se implementa modelo vista controlador.
+
+armar predeterminados 
