@@ -21,3 +21,5 @@ Se implementa modelo vista controlador.
 armar predeterminados 
 
 preparar como modelo
+
+no olvidarse de pensarlo para soluciones externas
