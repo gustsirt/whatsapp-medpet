@@ -19,3 +19,5 @@ En la configuración de la APP en Meta Developer:
 Se implementa modelo vista controlador.
 
 armar predeterminados 
+
+preparar como modelo
