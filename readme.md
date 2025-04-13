@@ -23,5 +23,4 @@ armar predeterminados
 preparar como modelo
 
 no olvidarse de pensarlo para soluciones externas
-
-NOTAS
+ver recolectar info y ponerlo en una tabla
