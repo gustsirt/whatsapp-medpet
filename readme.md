@@ -23,6 +23,6 @@ armar predeterminados
 preparar como modelo
 
 no olvidarse de pensarlo para soluciones externas
-ver recolectar info y ponerlo en una tabla
+ver recolectar información y ponerlo en una tabla
 
-pensar para reutilziar en negocios
+pensar para reutilizar en negocios
