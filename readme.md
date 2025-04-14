@@ -25,4 +25,4 @@ preparar como modelo
 no olvidarse de pensarlo para soluciones externas
 ver recolectar información y ponerlo en una tabla
 
-pensar para reutilizar en negocios
+pensar para reutilizar en negocios!
