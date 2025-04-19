@@ -11,6 +11,11 @@ const {
 class Service {
   constructor() { }
 
+  /* Manda un mensaje: ""
+      to: a quien
+      body: mensaje
+      messageId: indica que "responde" a este mensaje
+  */
   async sendMessage(to, body, messageId) {
     try {
       // send a reply message as per the docs here https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages
