@@ -5,8 +5,8 @@ const router = Router();
 
 // http://localhost:8080/webhook/
 router
-  .post('/webhook', controller.handleIncoming) // Recibe mensaje
-  .get('/webhook', controller.verifyWebhook)
+  .post('/', controller.handleIncoming) // Recibe mensaje
+  .get('/', controller.verifyWebhook) // se usa para verificar que funcione esta conexión
 
 // accepts GET requests at the /webhook endpoint. You need this URL to setup webhook initially.
 // info on verification request payload: https://developers.facebook.com/docs/graph-api/webhooks/getting-started#verification-requests
