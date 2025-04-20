@@ -11,8 +11,6 @@ const {
 class Service {
   constructor() { }
 
-  // Doc Mensajes: https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages
-
   /** Manda mensaje como leido:
    *    messageId: indica que mensaje es
   */
@@ -93,6 +91,56 @@ class Service {
       });
     } catch (error) {
       console.error('Error sending Buttons:', error);
+    }
+  }
+
+  /** Manda un mensaje multimedia
+   *   to: a quien
+   *   type: tipo de mutimedia
+   *   mediaUrl: url del recuerso
+   *   caption: nombre del recurso
+  */
+  async sendMediaMessage(to, type, mediaUrl, caption) {
+    try {
+      const mediaObject = {}
+
+      switch (type) {
+
+        case 'image':
+          mediaObject.image = { link: mediaUrl, caption: caption }
+          break;
+
+        case 'audio':
+          mediaObject.audio = { link: mediaUrl }
+          break;
+
+        case 'video':
+          mediaObject.video = { link: mediaUrl, caption: caption }
+          break;
+
+        case 'document':
+          mediaObject.document = { link: mediaUrl, caption: caption, filename: 'medpet.pdf' }
+          break;
+
+        default:
+          throw new Error('Not Soported Media Type');
+      }
+
+      await axios({
+        method: "POST",
+        url: `https://graph.facebook.com/${API_VERSION}/${BUSINESS_PHONE}/messages`,
+        headers: { Authorization: `Bearer ${API_TOKEN}`, },
+        data: {
+          messaging_product: "whatsapp",
+          recipient_type: "individual",
+          // to: to, // version original que daba error
+          to: to.replace(/^549/, "54"), // Corrige el formato si es necesario
+          type: type,
+          ...mediaObject,
+        },
+      });
+    } catch (error) {
+      console.error('Error sending Media ', type, ':', error);
     }
   }
 }
