@@ -40,7 +40,7 @@ class Service {
    *   body: mensaje
    *   messageId: indica que "responde" a este mensaje
   */
-  async sendMessage(to, body, messageId) {
+  async sendMessage(to, body, messageId = "") {
     try {
       await axios({
         method: "POST",
@@ -53,9 +53,9 @@ class Service {
           // to: to, // version original que daba error
           to: to.replace(/^549/, "54"), // Corrige el formato si es necesario
           text: { body },
-          context: {
-            message_id: messageId, // shows the message as a reply to the original user message
-          },
+          // context: {
+          //   message_id: messageId, // shows the message as a reply to the original user message
+          // },
         },
       });
     } catch (error) {

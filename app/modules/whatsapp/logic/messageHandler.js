@@ -4,7 +4,8 @@ class MessageHandler {
 
   // Recibe Mensaje
   async handleIncomingMessage(message, senderInfo) {
-    if (message?.type === 'text') {
+
+    if (message?.type === 'text') { // Si manda un texto
 
       const incomingMessage = message.text.body.toLowerCase().trim(); // limpia el mensaje
 
@@ -16,6 +17,12 @@ class MessageHandler {
         await service.sendMessage(message.from, response, message.id); // manda mensaje ECHO
       }
 
+      await service.markAsRead(message.id); // marca como leido
+
+    } else if (message?.type === 'interactive') { // Si elije una opcion interactiva
+      // console.log(message);
+      const optionTitle = message?.interactive?.button_reply?.title.toLowerCase().trim(); // en ves de "title" se puede eligir "id"
+      await this.handleMenuOption(message.from, optionTitle) // maneja la opcion elegida
       await service.markAsRead(message.id); // marca como leido
     }
   }
@@ -52,6 +59,26 @@ class MessageHandler {
       { type: 'reply', reply: { id: 'option_3', title: 'Ubicación' } },
     ]
     await service.sendIntereactiveButtonds(to, menuTitle, buttons)
+  }
+
+  // Manejar opcion Elegida
+  async handleMenuOption(to, optionTitle) {
+    let response;
+    switch (optionTitle) {
+      case 'agendar':
+        response = "Agendar Cita"
+        break;
+      case 'consultar':
+        response = "Realiza tu consulta"
+        break;
+      case 'ubicación':
+        response = 'Esta es nuestra ubicación.';
+        break;
+      default:
+        response = 'Lo siento, no entendí tu selección. Por favor, elige una de las opciones del menú.';
+        break;
+    }
+    await service.sendMessage(to, response);
   }
 }
 
