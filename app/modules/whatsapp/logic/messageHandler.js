@@ -10,6 +10,7 @@ class MessageHandler {
 
       if (this.isGreeting(incomingMessage)) { // es saludo de apertura ??
         await this.sendWelcomeMessage(message.from, message.id, senderInfo) // manda bienvenida
+        await this.sendWelcomeMenu(message.from) // manda menu bienvenida
       } else {
         const response = `Echo: ${message.text.body}`;
         await service.sendMessage(message.from, response, message.id); // manda mensaje ECHO
@@ -40,6 +41,17 @@ class MessageHandler {
     const name = this.getSenderName(senderInfo);
     const welcomeMessage = `Hola${name}, Bienvenido a MEDPET, Tu tienda de mascotas en línea. ¿En qué puedo ayudarte hoy?`;
     await service.sendMessage(to, welcomeMessage, messageId);
+  }
+
+  // Menu Bienvenida
+  async sendWelcomeMenu(to) {
+    const menuTitle = "Elige una Opción"
+    const buttons = [
+      { type: 'reply', reply: { id: 'option_1', title: 'Agendar' } },
+      { type: 'reply', reply: { id: 'option_2', title: 'Consultar' } },
+      { type: 'reply', reply: { id: 'option_3', title: 'Ubicación' } },
+    ]
+    await service.sendIntereactiveButtonds(to, menuTitle, buttons)
   }
 }
 
