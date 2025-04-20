@@ -12,6 +12,8 @@ class MessageHandler {
       if (this.isGreeting(incomingMessage)) { // es saludo de apertura ??
         await this.sendWelcomeMessage(message.from, message.id, senderInfo) // manda bienvenida
         await this.sendWelcomeMenu(message.from) // manda menu bienvenida
+      } else if (incomingMessage === 'media') {
+        await this.sendMedia(message.from);
       } else {
         const response = `Echo: ${message.text.body}`;
         await service.sendMessage(message.from, response, message.id); // manda mensaje ECHO
@@ -79,6 +81,27 @@ class MessageHandler {
         break;
     }
     await service.sendMessage(to, response);
+  }
+
+  // Enviar mensaje multimedia
+  async sendMedia(to) {
+    // const mediaUrl = 'https://s3.amazonaws.com/gndx.dev/medpet-audio.aac';
+    // const caption = 'Bienvenida';
+    // const type = 'audio';
+
+    const mediaUrl = 'https://s3.amazonaws.com/gndx.dev/medpet-imagen.png';
+    const caption = '¡Esto es una Imagen!';
+    const type = 'image';
+
+    // const mediaUrl = 'https://s3.amazonaws.com/gndx.dev/medpet-video.mp4';
+    // const caption = '¡Esto es una video!';
+    // const type = 'video';
+
+    // const mediaUrl = 'https://s3.amazonaws.com/gndx.dev/medpet-file.pdf';
+    // const caption = '¡Esto es un PDF!';
+    // const type = 'document';
+
+    await service.sendMediaMessage(to, type, mediaUrl, caption)
   }
 }
 
