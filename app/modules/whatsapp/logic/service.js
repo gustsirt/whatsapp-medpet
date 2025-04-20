@@ -19,7 +19,7 @@ class Service {
   async markAsRead(messageId) {
     try {
       await axios({
-        method: 'POST',
+        method: 'PUT',
         url: `https://graph.facebook.com/${API_VERSION}/${BUSINESS_PHONE}/messages`,
         headers: {
           Authorization: `Bearer ${API_TOKEN}`,
