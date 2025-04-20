@@ -30,6 +30,7 @@ pensar para reutilizar en negocios!
 
 ## Agregar colección de Whatsapp para postman
 
+[Documentación](https://developers.facebook.com/docs/whatsapp/cloud-api/reference/messages)
 [Postman](https://elements.getpostman.com/view/fork?collection=13382743-84d01ff8-4253-4720-b454-af661f36acc2&referrer=https%3A%2F%2Fdevelopers.facebook.com%2Fapp%2Fdashboard#)
 
 INICIO: Examples --> Send Sample Text Message
