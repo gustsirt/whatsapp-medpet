@@ -2,7 +2,6 @@
 
 Basada en: [Platzi](https://platzi.com/cursos/whatsapp-api/) Whatsapp
 
-
 En la configuración de la APP en Meta Developer:
 
 * PASO 0: Identificador de acceso - se suele vencer cada 3hs mas o menos
@@ -20,7 +19,7 @@ En la configuración de la APP en Meta Developer:
 
 Se implementa modelo vista controlador.
 
-armar predeterminados 
+armar predeterminados
 
 preparar como modelo
 
