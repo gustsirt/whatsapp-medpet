@@ -133,7 +133,7 @@ class MessageHandler {
     await service.sendMediaMessage(to, type, mediaUrl, caption)
   }
 
-  // AGENDAR CITA: Opciones 
+  // MENU - AGENDAR CITA: Opciones 
   async handleAppointmentFlow(to, message) {
     const state = this.appointmentState[to];
     let response;
@@ -169,7 +169,7 @@ class MessageHandler {
     await service.sendMessage(to, response);
   }
 
-  // AGENDAR CITA: Cierre
+  // MENU - AGENDAR CITA: Cierre
   completeAppointmentFlow(to) {
     const appointment = this.appointmentState[to]; // se copia datos guardado
     delete this.appointmentState[to]; // se libera memoria
