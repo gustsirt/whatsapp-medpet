@@ -7,6 +7,8 @@ class MessageHandler {
 
   // Recibe Mensaje
   async handleIncomingMessage(message, senderInfo) {
+    console.log(this.appointmentState);
+
 
     if (message?.type === 'text') { // Si manda un texto
 
@@ -77,7 +79,7 @@ class MessageHandler {
     let response;
     switch (optionTitle) {
       case 'agendar': // respuesta a la eleccion del menu
-        this.appointmentState[to] = { step: 'name' }
+        this.appointmentState[to] = { step: 'name' } // aqui es donde el "flujo" se inicia
         response = "Por favor, ingresa tu nombre: "
         break;
       case 'consultar': // respuesta a la eleccion del menu
