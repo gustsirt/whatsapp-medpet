@@ -63,7 +63,7 @@ class MessageHandler {
     await service.sendMessage(to, welcomeMessage, messageId);
   }
 
-  // Menu Bienvenida
+  // MENU Bienvenida
   async sendWelcomeMenu(to) {
     const menuTitle = "Elige una Opción"
     const buttons = [
@@ -74,7 +74,7 @@ class MessageHandler {
     await service.sendIntereactiveButtonds(to, menuTitle, buttons)
   }
 
-  // Manejar opcion Elegida (del menu)
+  // MENU: Manejar opcion Elegida (del menu)
   async handleMenuOption(to, optionTitle) {
     let response;
     switch (optionTitle) {
