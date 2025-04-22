@@ -17,8 +17,11 @@ class MessageHandler {
         await this.sendWelcomeMessage(message.from, message.id, senderInfo) // manda bienvenida
         await this.sendWelcomeMenu(message.from) // manda menu bienvenida
 
-      } else if (mediaFile.includes(incomingMessage)) {
+      } else if (mediaFile.includes(incomingMessage)) { // si una alabra pidiendo media
         await this.sendMedia(message.from, incomingMessage);
+
+      } else if (this.appointmentState[message.from]) {
+        await this.handleAppointmentFlow(message.from, incomingMessage);
 
       } else {
         const response = `Echo: ${message.text.body}`;
@@ -73,13 +76,14 @@ class MessageHandler {
   async handleMenuOption(to, optionTitle) {
     let response;
     switch (optionTitle) {
-      case 'agendar':
-        response = "Agendar Cita"
+      case 'agendar': // respuesta a la eleccion del menu
+        this.appointmentState[to] = { step: 'name' }
+        response = "Por favor, ingresa tu nombre: "
         break;
-      case 'consultar':
+      case 'consultar': // respuesta a la eleccion del menu
         response = "Realiza tu consulta"
         break;
-      case 'ubicación':
+      case 'ubicación': // respuesta a la eleccion del menu
         response = 'Esta es nuestra ubicación.';
         break;
       default:
@@ -125,6 +129,43 @@ class MessageHandler {
     }
 
     await service.sendMediaMessage(to, type, mediaUrl, caption)
+  }
+
+  // Opciones AGENDAR CITA
+  async handleAppointmentFlow(to, message) {
+    const state = this.appointmentState[to];
+    let response;
+
+    switch (state.step) {
+      case 'name':
+        state.name = message;
+        state.step = 'petName';
+        response = "Gracias, Ahora, ¿Cuál es el nombre de tu Mascota?";
+        break;
+
+      case 'petName':
+        state.petName = message;
+        state.step = 'petType';
+        response = '¿Qué tipo de mascota es? (por ejemplo: perro, gato, huron, etc.)';
+        break;
+
+      case 'petType':
+        state.petType = message;
+        state.step = 'reason';
+        response = '¿Cuál es el motivo de la Consulta?';
+        break;
+
+      case 'reason':
+        state.reason = message;
+        // state.step = 'end';
+        response = 'Gracias por agendar tu cita.';
+        break;
+
+      default:
+        break;
+    }
+
+    await service.sendMessage(to, response);
   }
 }
 
