@@ -19,14 +19,13 @@ En la configuración de la APP en Meta Developer:
 
 Se implementa modelo vista controlador.
 
-armar predeterminados
+## Para hacer
 
-preparar como modelo
-
-no olvidarse de pensarlo para soluciones externas
-ver recolectar información y ponerlo en una tabla
-
-pensar para reutilizar en negocios!
+* armar predeterminados
+* preparar como modelo
+* no olvidarse de pensarlo para soluciones externas
+* ver recolectar información y ponerlo en una tabla
+* pensar para reutilizar en negocios!
 
 ## Agregar colección de Whatsapp para postman
 
