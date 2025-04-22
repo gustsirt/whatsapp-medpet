@@ -20,7 +20,7 @@ class MessageHandler {
       } else if (mediaFile.includes(incomingMessage)) { // si una alabra pidiendo media
         await this.sendMedia(message.from, incomingMessage);
 
-      } else if (this.appointmentState[message.from]) {
+      } else if (this.appointmentState[message.from]) { // Captura FLujo agendar cita
         await this.handleAppointmentFlow(message.from, incomingMessage);
 
       } else {
