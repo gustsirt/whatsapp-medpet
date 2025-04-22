@@ -1,6 +1,9 @@
 import service from "./service.js";
 
 class MessageHandler {
+  constructor() {
+    this.appointmentState = {};
+  }
 
   // Recibe Mensaje
   async handleIncomingMessage(message, senderInfo) {
