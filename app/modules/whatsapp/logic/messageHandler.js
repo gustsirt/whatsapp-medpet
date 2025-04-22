@@ -69,7 +69,7 @@ class MessageHandler {
     await service.sendIntereactiveButtonds(to, menuTitle, buttons)
   }
 
-  // Manejar opcion Elegida
+  // Manejar opcion Elegida (del menu)
   async handleMenuOption(to, optionTitle) {
     let response;
     switch (optionTitle) {
