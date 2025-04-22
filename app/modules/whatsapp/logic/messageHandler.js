@@ -133,7 +133,7 @@ class MessageHandler {
     await service.sendMediaMessage(to, type, mediaUrl, caption)
   }
 
-  // Opciones AGENDAR CITA
+  // AGENDAR CITA: Opciones 
   async handleAppointmentFlow(to, message) {
     const state = this.appointmentState[to];
     let response;
@@ -159,8 +159,7 @@ class MessageHandler {
 
       case 'reason':
         state.reason = message;
-        // state.step = 'end';
-        response = 'Gracias por agendar tu cita.';
+        response = this.completeAppointmentFlow(to); // Cierre
         break;
 
       default:
@@ -168,6 +167,33 @@ class MessageHandler {
     }
 
     await service.sendMessage(to, response);
+  }
+
+  // AGENDAR CITA: Cierre
+  completeAppointmentFlow(to) {
+    const appointment = this.appointmentState[to]; // se copia datos guardado
+    delete this.appointmentState[to]; // se libera memoria
+
+    const userData = [
+      to,
+      appointment.name,
+      appointment.petName,
+      appointment.petType,
+      appointment.reason,
+      new Date().toISOString()
+    ]
+
+    console.log(userData); // por ahora s muestra, esto deberia guardarse
+
+    return `Gracias por agendar tu cita.
+
+    Resumen:
+    Nombre: ${appointment.name}
+    Mascota: ${appointment.petName}
+    Tipo: ${appointment.petType}
+    Motivo: ${appointment.reason}
+
+    Nos pondremos en contacto contigo pronto para confirmar la fecha y hora de tu cita.`
   }
 }
 
