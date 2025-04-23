@@ -10,6 +10,11 @@ const configEnv = {
   API_TOKEN: process.env.API_TOKEN, // Identificador de acceso
   BUSINESS_PHONE: process.env.BUSINESS_PHONE, // Identificador del número de teléfono
   WEBHOOK_VERIFY_TOKEN: process.env.WEBHOOK_VERIFY_TOKEN, // Contraseña ìnventada
+
+  // GOOGLE API
+  GOOGLE_SERVICE_ACCOUNT_EMAIL: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL, // Email de servicio
+  GOOGLE_SHEETS_ID: process.env.GOOGLE_SHEETS_ID, // Planilla base Sheets
+  GOOGLE_PRIVATE_KEY: process.env.GOOGLE_PRIVATE_KEY, // token
 }
 
 export default configEnv
