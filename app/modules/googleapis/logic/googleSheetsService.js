@@ -4,7 +4,7 @@ import { google } from 'googleapis';
 
 const { GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY, GOOGLE_SHEETS_ID } = configEnv
 
-const sheets = google.sheets({ version: 'v4', auth });
+const sheets = google.sheets({ version: 'v4' }); // { version: 'v4', auth } // tambien puedo incluir auth alli
 
 // Funcion de agregado guardar datos
 async function addRowToSheet(auth, spreadsheetId, values) {
