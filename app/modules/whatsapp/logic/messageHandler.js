@@ -1,3 +1,4 @@
+import appendToSheet from "../../googleapis/logic/googleSheetsService.js";
 import service from "./service.js";
 
 class MessageHandler {
@@ -7,8 +8,7 @@ class MessageHandler {
 
   // Recibe Mensaje
   async handleIncomingMessage(message, senderInfo) {
-    console.log(this.appointmentState);
-
+    // console.log(this.appointmentState);
 
     if (message?.type === 'text') { // Si manda un texto
 
@@ -183,7 +183,7 @@ class MessageHandler {
       new Date().toISOString()
     ]
 
-    console.log(userData); // por ahora s muestra, esto deberia guardarse
+    appendToSheet(userData); // Guarda los datos en Sheets
 
     return `Gracias por agendar tu cita.
 
