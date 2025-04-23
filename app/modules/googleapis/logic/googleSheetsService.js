@@ -6,6 +6,7 @@ const { GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY, GOOGLE_SHEETS_ID } = c
 
 const sheets = google.sheets({ version: 'v4', auth });
 
+// Funcion de agregado guardar datos
 async function addRowToSheet(auth, spreadsheetId, values) {
   const request = {
     spreadsheetId,
@@ -26,6 +27,7 @@ async function addRowToSheet(auth, spreadsheetId, values) {
   }
 }
 
+// Authentifica y llama a funcion de agregado
 const appendToSheet = async (data) => {
   try {
     // * Autenticación con Google Sheets con GoogleAuth
