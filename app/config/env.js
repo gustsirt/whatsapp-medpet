@@ -18,6 +18,7 @@ const configEnv = {
 
   // OPEN AI
   CHAT_GPT_API_KEY: process.env.CHAT_GPT_API_KEY, // token
+  CHAT_GPT_PROMPT: process.env.CHAT_GPT_PROMPT,
 }
 
 export default configEnv
