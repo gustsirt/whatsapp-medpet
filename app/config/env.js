@@ -15,6 +15,9 @@ const configEnv = {
   GOOGLE_SERVICE_ACCOUNT_EMAIL: process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL, // Email de servicio
   GOOGLE_SHEETS_ID: process.env.GOOGLE_SHEETS_ID, // Planilla base Sheets
   GOOGLE_PRIVATE_KEY: process.env.GOOGLE_PRIVATE_KEY, // token
+
+  // OPEN AI
+  CHAT_GPT_API_KEY: process.env.CHAT_GPT_API_KEY, // token
 }
 
 export default configEnv
