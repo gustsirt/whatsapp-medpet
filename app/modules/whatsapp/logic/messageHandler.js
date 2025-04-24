@@ -6,7 +6,7 @@ class MessageHandler {
     this.appointmentState = {};
   }
 
-  // Recibe Mensaje - ESTA FUCION ES LA BASE DE TODO
+  // Recibe Mensaje - ESTA FUNCION ES LA BASE DE TODO
   async handleIncomingMessage(message, senderInfo) {
     // console.log(this.appointmentState);
 
