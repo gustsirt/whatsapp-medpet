@@ -18,7 +18,7 @@ const openAiService = async (message) => {
         { role: 'system', content: prompt }, // Como se debe comportar la IA
         { role: 'user', content: message }   // Consulta del usuario
       ],
-      model: 'gpt-4o'
+      model: 'gpt-4o-mini'
     });
 
     return response.choices[0].message.content;

@@ -1,9 +1,11 @@
 import appendToSheet from "../../googleapis/logic/googleSheetsService.js";
+import openAiService from "../../opeai/logic/openAiService.js";
 import service from "./service.js";
 
 class MessageHandler {
   constructor() {
-    this.appointmentState = {};
+    this.appointmentState = {}; // estado flujo Agendar Cita
+    this.assistandState = {}; // estado flujo ChatGPT
   }
 
   // Recibe Mensaje - ESTA FUNCION ES LA BASE DE TODO
@@ -22,12 +24,14 @@ class MessageHandler {
       } else if (mediaFile.includes(incomingMessage)) { // si una alabra pidiendo media
         await this.sendMedia(message.from, incomingMessage);
 
-      } else if (this.appointmentState[message.from]) { // Captura FLujo agendar cita
+      } else if (this.appointmentState[message.from]) { // Captura flujo Agendar Cita - si ese usuario tiene ese esatdo
         await this.handleAppointmentFlow(message.from, incomingMessage);
 
-      } else {
-        const response = `Echo: ${message.text.body}`;
-        await service.sendMessage(message.from, response, message.id); // manda mensaje ECHO
+      } else if (this.assistandState[message.from]) { // Captura flujo ChatGPT - si ese usuario tiene ese esatdo
+        await this.handleAssistandFlow(message.from, incomingMessage);
+
+      } else { // En su defecto asume que se refiere al menu
+        await this.handleMenuOption(message.from, incomingMessage)
       }
 
       await service.markAsRead(message.id); // marca como leido
@@ -79,10 +83,11 @@ class MessageHandler {
     let response;
     switch (optionTitle) {
       case 'agendar': // respuesta a la eleccion del menu
-        this.appointmentState[to] = { step: 'name' } // aqui es donde el "flujo" se inicia
+        this.appointmentState[to] = { step: 'name' } // aqui es donde el "flujo" se inicia de agendar cita
         response = "Por favor, ingresa tu nombre: "
         break;
       case 'consultar': // respuesta a la eleccion del menu
+        this.assistandState[to] = { step: 'question' } // aqui es donde el "flujo" se inicia de chat gpt
         response = "Realiza tu consulta"
         break;
       case 'ubicación': // respuesta a la eleccion del menu
@@ -194,6 +199,31 @@ class MessageHandler {
     Motivo: ${appointment.reason}
 
     Nos pondremos en contacto contigo pronto para confirmar la fecha y hora de tu cita.`
+  }
+
+  // MENU - CONSULTAR (CHAT GPT)
+  async handleAssistandFlow(to, message) {
+
+    // Flujo Pregunta Chat GPT - se inicia en consulta
+    const state = this.assistandState[to];
+    let response;
+
+    if (state.step === 'question') {
+      response = await openAiService(message)
+    }
+
+    delete this.assistandState[to];
+
+    await service.sendMessage(to, response);
+
+    // Menu que se manda luego de la respuesta de IA
+    const menuTitle = "¿La respuesta fue de tu ayuda?"
+    const buttons = [
+      { type: 'reply', reply: { id: 'option_2_1', title: 'Si, Gracias' } },
+      { type: 'reply', reply: { id: 'option_2_2', title: 'Hacer otra pregunta' } },
+      { type: 'reply', reply: { id: 'option_2_3', title: 'Emergencia' } },
+    ]
+    await service.sendIntereactiveButtonds(to, menuTitle, buttons)
   }
 }
 
