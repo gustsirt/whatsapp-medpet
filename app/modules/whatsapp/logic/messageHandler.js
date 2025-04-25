@@ -11,6 +11,7 @@ class MessageHandler {
   // Recibe Mensaje - ESTA FUNCION ES LA BASE DE TODO
   async handleIncomingMessage(message, senderInfo) {
     // console.log(this.appointmentState);
+    // console.log(this.assistandState);
 
     if (message?.type === 'text') { // Si manda un texto
 
@@ -24,10 +25,10 @@ class MessageHandler {
       } else if (mediaFile.includes(incomingMessage)) { // si una alabra pidiendo media
         await this.sendMedia(message.from, incomingMessage);
 
-      } else if (this.appointmentState[message.from]) { // Captura flujo Agendar Cita - si ese usuario tiene ese esatdo
+      } else if (this.appointmentState[message.from]) { // Captura flujo Agendar Cita - si ese usuario tiene ese estado
         await this.handleAppointmentFlow(message.from, incomingMessage);
 
-      } else if (this.assistandState[message.from]) { // Captura flujo ChatGPT - si ese usuario tiene ese esatdo
+      } else if (this.assistandState[message.from]) { // Captura flujo ChatGPT - si ese usuario tiene ese estado
         await this.handleAssistandFlow(message.from, incomingMessage);
 
       } else { // En su defecto asume que se refiere al menu
@@ -37,14 +38,14 @@ class MessageHandler {
       await service.markAsRead(message.id); // marca como leido
 
     } else if (message?.type === 'interactive') { // Si elije una opcion interactiva
-      // console.log(message);
+
       const optionTitle = message?.interactive?.button_reply?.title.toLowerCase().trim(); // en ves de "title" se puede eligir "id"
       await this.handleMenuOption(message.from, optionTitle) // maneja la opcion elegida
       await service.markAsRead(message.id); // marca como leido
     }
   }
 
-  // Obtiene nombre
+  // Obtiene el nombre
   getSenderName(senderInfo) {
     // console.log("senderInfo: ", senderInfo); // { profile: { name: 'Gustavo Andrés' }, wa_id: '5493541xxxxxx' }
 
@@ -54,7 +55,7 @@ class MessageHandler {
     return sendName == "" ? "" : " " + sendName
   }
 
-  // Si es saludo de apertura
+  // Si es saludo de apertura ( hola, buenas, buenos dias, .. etc)
   isGreeting(message) {
     const greetings = ["hola", "holas", "buenas", "buenas tardes", "buenas días"];
     return greetings.includes(message);
