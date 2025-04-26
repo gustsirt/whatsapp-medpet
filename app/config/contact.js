@@ -1,3 +1,5 @@
+// Estructura general de contacto - se puede omitir lo que no se usa
+
 const contact = {
   addresses: [
     {
