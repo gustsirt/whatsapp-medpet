@@ -231,7 +231,7 @@ class MessageHandler {
   // Mandar contacto
   async sendContact(to) {
     const contactToSend = contact // se importa de config
-    await whatsappService.sendContactMessage(to, contactToSend);
+    await service.sendContactMessage(to, contactToSend);
   }
 }
 
