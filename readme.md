@@ -34,3 +34,4 @@ Se implementa modelo vista controlador.
 
 * INICIO: Examples --> Send Sample Text Message
 * MENSAJES: AOI Reference --> Messages
+* VER COMO ALIMENTAR IA: como usar fuentes de datos
