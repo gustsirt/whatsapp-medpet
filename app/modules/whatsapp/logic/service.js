@@ -143,6 +143,31 @@ class Service {
       console.error('Error sending Media ', type, ':', error);
     }
   }
+
+  /** Manda un contacto
+   *   to: a quien
+   *   body: contacto
+   */
+  async sendContactMessage(to, contact) {
+    try {
+      await axios({
+        method: "POST",
+        url: `https://graph.facebook.com/${API_VERSION}/${BUSINESS_PHONE}/messages`,
+        headers: {
+          Authorization: `Bearer ${API_TOKEN}`,
+        },
+        data: {
+          messaging_product: "whatsapp",
+          // to: to, // version original que daba error
+          to: to.replace(/^549/, "54"), // Corrige el formato si es necesario
+          type: 'contacts',
+          contacts: [contact]
+        },
+      });
+    } catch (error) {
+      console.error('Error sending contact:', error);
+    }
+  }
 }
 
 export default new Service()
