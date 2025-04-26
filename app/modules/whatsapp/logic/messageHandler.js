@@ -40,8 +40,8 @@ class MessageHandler {
 
     } else if (message?.type === 'interactive') { // Si elije una opcion interactiva
 
-      const optionTitle = message?.interactive?.button_reply?.title.toLowerCase().trim(); // en ves de "title" se puede eligir "id"
-      await this.handleMenuOption(message.from, optionTitle) // maneja la opcion elegida
+      const optionId = message?.interactive?.button_reply?.id; // en ves de "title" se puede eligir "id"
+      await this.handleMenuOption(message.from, optionId) // maneja la opcion elegida
       await service.markAsRead(message.id); // marca como leido
     }
   }
@@ -81,20 +81,30 @@ class MessageHandler {
   }
 
   // MENU: Manejar opcion Elegida (del menu)
-  async handleMenuOption(to, optionTitle) {
+  async handleMenuOption(to, optionId) {
     let response;
-    switch (optionTitle) {
-      case 'agendar': // respuesta a la eleccion del menu
+    switch (optionId) {
+
+      // ? MENU INICIAL
+      case 'option_1': // respuesta a la eleccion del menu
         this.appointmentState[to] = { step: 'name' } // aqui es donde el "flujo" se inicia de agendar cita
         response = "Por favor, ingresa tu nombre: "
         break;
-      case 'consultar': // respuesta a la eleccion del menu
+      case 'option_2': // respuesta a la eleccion del menu
         this.assistandState[to] = { step: 'question' } // aqui es donde el "flujo" se inicia de chat gpt
         response = "Realiza tu consulta"
         break;
-      case 'ubicación': // respuesta a la eleccion del menu
+      case 'option_3': // respuesta a la eleccion del menu
         response = 'Esta es nuestra ubicación.';
         break;
+
+      // ? MENU CHAT
+      case 'option_2_3':
+        response = "Si esto es una emergencia, te invitamos a llamar a nuestra linea de atención"
+        await this.sendContact(to);
+        break;
+
+      // ? OPCION POR DEFETO
       default:
         response = 'Lo siento, no entendí tu selección. Por favor, elige una de las opciones del menú.';
         break;
