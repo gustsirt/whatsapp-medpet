@@ -1,3 +1,4 @@
+import contact from "../../../config/contact.js";
 import appendToSheet from "../../googleapis/logic/googleSheetsService.js";
 import openAiService from "../../opeai/logic/openAiService.js";
 import service from "./service.js";
@@ -225,6 +226,12 @@ class MessageHandler {
       { type: 'reply', reply: { id: 'option_2_3', title: 'Emergencia' } },
     ]
     await service.sendIntereactiveButtonds(to, menuTitle, buttons)
+  }
+
+  // Mandar contacto
+  async sendContact(to) {
+    const contactToSend = contact // se importa de config
+    await whatsappService.sendContactMessage(to, contactToSend);
   }
 }
 
