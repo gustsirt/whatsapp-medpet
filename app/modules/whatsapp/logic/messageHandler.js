@@ -40,7 +40,7 @@ class MessageHandler {
 
     } else if (message?.type === 'interactive') { // Si elije una opcion interactiva
 
-      const optionId = message?.interactive?.button_reply?.id; // en ves de "title" se puede eligir "id"
+      const optionId = message?.interactive?.button_reply?.id; // "id" del elemento
       await this.handleMenuOption(message.from, optionId) // maneja la opcion elegida
       await service.markAsRead(message.id); // marca como leido
     }
