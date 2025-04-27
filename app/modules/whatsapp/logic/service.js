@@ -146,7 +146,7 @@ class Service {
 
   /** Manda un contacto
    *   to: a quien
-   *   body: contacto
+   *   contact: contacto predefinido
    */
   async sendContactMessage(to, contact) {
     try {
@@ -166,6 +166,32 @@ class Service {
       });
     } catch (error) {
       console.error('Error sending contact:', error);
+    }
+  }
+
+
+  /** Manda una ubicacion
+   *   to: a quien
+   *   location: ubicación predefinida
+   */
+  async sendLocationMessage(to, location) {
+    try {
+      await axios({
+        method: "POST",
+        url: `https://graph.facebook.com/${API_VERSION}/${BUSINESS_PHONE}/messages`,
+        headers: {
+          Authorization: `Bearer ${API_TOKEN}`,
+        },
+        data: {
+          messaging_product: "whatsapp",
+          // to: to, // version original que daba error
+          to: to.replace(/^549/, "54"), // Corrige el formato si es necesario
+          type: 'location',
+          location: location
+        },
+      });
+    } catch (error) {
+      console.error('Error sending location:', error);
     }
   }
 }
