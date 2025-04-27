@@ -6,6 +6,7 @@ const configEnv = {
   PORT: process.env.PORT,
 
   // Whatsapp
+  BASE_WP_URL: process.env.BASE_WP_URL, // Base URL de la API
   API_VERSION: process.env.API_VERSION, // version de la api en Meta
   API_TOKEN: process.env.API_TOKEN, // Identificador de acceso
   BUSINESS_PHONE: process.env.BUSINESS_PHONE, // Identificador del número de teléfono
