@@ -1,6 +1,6 @@
 // Estructura general de contacto - se puede omitir lo que no se usa
 
-const contact = {
+export const contact = {
   addresses: [
     {
       street: "123 Calle de las Mascotas",
@@ -45,4 +45,10 @@ const contact = {
     }
   ]
 };
-export default contact
+
+export const location = {
+  latitude: 6.2071694,
+  longitude: -75.574607,
+  name: 'Platzi Medellín',
+  address: 'Cra. 43A #5A - 113, El Poblado, Medellín, Antioquia.',
+}
