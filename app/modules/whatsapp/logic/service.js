@@ -1,4 +1,4 @@
-import { sendToWhatsApp } from "../../../pkg/api/axiosWhatsapp.js";
+import sendToWhatsApp from "../../../pkg/api/whatsappService.js";
 
 class Service {
   constructor() { }
@@ -23,7 +23,7 @@ class Service {
   async sendMessage(to, body, messageId) {
     const data = {
       messaging_product: "whatsapp",
-      to: to.replace(/^549/, "54"), // Para Arg se reemplaza el 9, sino va solo "to"
+      to,
       text: { body },
     }
 
@@ -41,7 +41,7 @@ class Service {
   async sendIntereactiveButtonds(to, menuTitle, buttons) {
     const data = {
       messaging_product: "whatsapp",
-      to: to.replace(/^549/, "54"), // Para Arg se reemplaza el 9, sino va solo "to"
+      to,
       type: "interactive",
       interactive: {
         type: "button",
@@ -88,7 +88,7 @@ class Service {
     const data = {
       messaging_product: 'whatsapp',
       recipient_type: 'individual',
-      to: to.replace(/^549/, "54"), // Para Arg se reemplaza el 9, sino va solo "to"
+      to,
       type: type,
       ...mediaObject,
     }
@@ -103,7 +103,7 @@ class Service {
   async sendContactMessage(to, contact) {
     const data = {
       messaging_product: 'whatsapp',
-      to: to.replace(/^549/, "54"), // Para Arg se reemplaza el 9, sino va solo "to"
+      to,
       type: 'contacts',
       contacts: [contact],
     };
@@ -119,7 +119,7 @@ class Service {
   async sendLocationMessage(to, location) {
     const data = {
       messaging_product: 'whatsapp',
-      to: to.replace(/^549/, "54"), // Para Arg se reemplaza el 9, sino va solo "to"
+      to,
       type: 'location',
       location
     };
