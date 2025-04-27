@@ -121,12 +121,7 @@ class Service {
       messaging_product: 'whatsapp',
       to: to.replace(/^549/, "54"), // Para Arg se reemplaza el 9, sino va solo "to"
       type: 'location',
-      location: {
-        latitude: latitude,
-        longitude: longitude,
-        name: name,
-        address: address
-      }
+      location
     };
 
     await sendToWhatsApp(data);
