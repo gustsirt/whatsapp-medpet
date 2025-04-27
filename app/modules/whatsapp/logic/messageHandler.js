@@ -80,7 +80,7 @@ class MessageHandler {
     await service.sendIntereactiveButtonds(to, menuTitle, buttons)
   }
 
-  // MENU: Manejar opcion Elegida (del menu)
+  // HANDLER MENU: Manejar opcion Elegida (del menu)
   async handleMenuOption(to, optionId) {
     let response;
     switch (optionId) {
@@ -95,7 +95,8 @@ class MessageHandler {
         response = "Realiza tu consulta"
         break;
       case 'option_3': // respuesta a la eleccion del menu
-        response = 'Esta es nuestra ubicación.';
+        response = 'Te esperamos en nuestra sucursal.';
+        await this.sendLocation(to)
         break;
 
       // ? MENU CHAT
