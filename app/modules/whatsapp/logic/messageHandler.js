@@ -1,4 +1,4 @@
-import contact from "../../../config/contact.js";
+import { contact, location } from "../../../config/contact.js";
 import appendToSheet from "../../googleapis/logic/googleSheetsService.js";
 import openAiService from "../../opeai/logic/openAiService.js";
 import service from "./service.js";
@@ -238,10 +238,15 @@ class MessageHandler {
     await service.sendIntereactiveButtonds(to, menuTitle, buttons)
   }
 
-  // Mandar contacto
+  // Mandar contacto - Ver Json referencia
   async sendContact(to) {
     const contactToSend = contact // se importa de config
     await service.sendContactMessage(to, contactToSend);
+  }
+
+  // Mandar Ubicación - latitude, longitude, name, address
+  async sendLocation(to) {
+    await service.sendLocationMessage(to, location);
   }
 }
 
