@@ -12,14 +12,4 @@ const whatsappClient = axios.create({
   timeout: 1000 * 5, // Tiempo de espera máximo de 5 segundos - opcional
 })
 
-export const sendToWhatsApp = async (data) => {
-  try {
-    const response = await whatsappClient.post('/messages', data);
-    return response.data;
-  } catch (error) {
-    console.error('Error al enviar mensaje a WhatsApp:', error);
-    throw error;
-  }
-}
-
 export default whatsappClient;

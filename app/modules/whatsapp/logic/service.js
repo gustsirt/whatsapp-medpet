@@ -3,9 +3,10 @@ import sendToWhatsApp from "../../../pkg/api/whatsappService.js";
 class Service {
   constructor() { }
 
-  /** Manda mensaje como leido:
-   *    messageId: indica que mensaje es
-  */
+  /**
+   * Marca un mensaje como leído en WhatsApp.
+   * @param {string} messageId - ID del mensaje que se marcará como leído.
+   */
   async markAsRead(messageId) {
     const data = {
       messaging_product: 'whatsapp',
@@ -15,30 +16,34 @@ class Service {
     await sendToWhatsApp(data);
   }
 
-  /** Manda un mensaje
-   *   to: a quien
-   *   body: mensaje
-   *   messageId: indica que "responde" a este mensaje
-  */
+  /**
+   * Envía un mensaje de texto a través de WhatsApp.
+   * @param {string} to - Número de teléfono del destinatario.
+   * @param {string} body - Contenido del mensaje de texto.
+   * @param {string} [messageId] - (Opcional) ID del mensaje que se está respondiendo.
+   */
   async sendMessage(to, body, messageId) {
     const data = {
       messaging_product: "whatsapp",
       to,
       text: { body },
+    };
+
+    if (messageId) {
+      data.context = { message_id: messageId };
     }
 
-    if (messageId) { data.context = { message_id: messageId } }
-
-    await sendToWhatsApp(data)
+    await sendToWhatsApp(data);
   }
 
-  /** Manda mensaje con botones apra seleccionar
-   *   to: a quien
-   *   menuTitle: titulo de menu
-   *   buttons: botone
-   *    ejemplo: [{ type: 'reply', reply: { id: 'option_1', title: 'Agendar' } },]
-  */
-  async sendIntereactiveButtonds(to, menuTitle, buttons) {
+  /**
+   * Envía un mensaje interactivo de tipo botón a través de WhatsApp.
+   * @param {string} to - Número de teléfono del destinatario.
+   * @param {string} menuTitle - Texto que aparecerá como título en el cuerpo del mensaje.
+   * @param {Array<Object>} buttons - Lista de botones disponibles para seleccionar.
+   * Ejemplo: [{ type: 'reply', reply: { id: 'option_1', title: 'Agendar' } }]
+   */
+  async sendInteractiveButtons(to, menuTitle, buttons) {
     const data = {
       messaging_product: "whatsapp",
       to,
@@ -46,59 +51,56 @@ class Service {
       interactive: {
         type: "button",
         body: { text: menuTitle },
-        action: {
-          buttons: buttons
-        }
+        action: { buttons }
       }
-    }
+    };
 
-    await sendToWhatsApp(data)
+    await sendToWhatsApp(data);
   }
 
-  /** Manda un mensaje multimedia
-   *   to: a quien
-   *   type: tipo de mutimedia
-   *   mediaUrl: url del recuerso
-   *   caption: nombre del recurso
-  */
+  /**
+   * Envía un mensaje multimedia (imagen, audio, video o documento) a través de WhatsApp.
+   * @param {string} to - Número de teléfono del destinatario.
+   * @param {string} type - Tipo de medio a enviar: 'image', 'audio', 'video' o 'document'.
+   * @param {string} mediaUrl - URL pública del recurso multimedia.
+   * @param {string} [caption] - (Opcional) Texto descriptivo o nombre del recurso.
+   * @throws {Error} Si el tipo de medio no es soportado.
+   */
   async sendMediaMessage(to, type, mediaUrl, caption) {
-    const mediaObject = {}
+    const mediaObject = {};
+
     switch (type) {
-
       case 'image':
-        mediaObject.image = { link: mediaUrl, caption: caption }
+        mediaObject.image = { link: mediaUrl, caption };
         break;
-
       case 'audio':
-        mediaObject.audio = { link: mediaUrl }
+        mediaObject.audio = { link: mediaUrl };
         break;
-
       case 'video':
-        mediaObject.video = { link: mediaUrl, caption: caption }
+        mediaObject.video = { link: mediaUrl, caption };
         break;
-
       case 'document':
-        mediaObject.document = { link: mediaUrl, caption: caption, filename: 'medpet.pdf' }
+        mediaObject.document = { link: mediaUrl, caption, filename: 'medpet.pdf' };
         break;
-
       default:
-        throw new Error('Not Soported Media Type');
+        throw new Error('Not Supported Media Type');
     }
 
     const data = {
       messaging_product: 'whatsapp',
       recipient_type: 'individual',
       to,
-      type: type,
+      type,
       ...mediaObject,
-    }
+    };
 
-    await sendToWhatsApp(data)
+    await sendToWhatsApp(data);
   }
 
-  /** Manda un contacto
-   *   to: a quien
-   *   contact: contacto predefinido
+  /**
+   * Envía un contacto a través de WhatsApp.
+   * @param {string} to - Número de teléfono del destinatario.
+   * @param {Object} contact - Objeto que representa el contacto que se enviará.
    */
   async sendContactMessage(to, contact) {
     const data = {
@@ -111,21 +113,21 @@ class Service {
     await sendToWhatsApp(data);
   }
 
-
-  /** Manda una ubicacion
-   *   to: a quien
-   *   location: ubicación predefinida
+  /**
+   * Envía una ubicación a través de WhatsApp.
+   * @param {string} to - Número de teléfono del destinatario.
+   * @param {Object} location - Objeto de ubicación con latitud, longitud y nombre.
    */
   async sendLocationMessage(to, location) {
     const data = {
       messaging_product: 'whatsapp',
       to,
       type: 'location',
-      location
+      location,
     };
 
     await sendToWhatsApp(data);
   }
 }
 
-export default new Service()
+export default new Service();
