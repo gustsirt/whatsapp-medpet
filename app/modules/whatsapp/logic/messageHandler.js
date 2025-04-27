@@ -97,13 +97,11 @@ class MessageHandler {
       case 'option_3': // respuesta a la eleccion del menu
         response = 'Te esperamos en nuestra sucursal.';
         await this.sendLocation(to)
-        break;
 
       // ? MENU CHAT
       case 'option_2_3':
         response = "Si esto es una emergencia, te invitamos a llamar a nuestra linea de atención"
         await this.sendContact(to);
-        break;
 
       // ? OPCION POR DEFETO
       default:
