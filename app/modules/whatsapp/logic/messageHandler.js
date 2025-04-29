@@ -77,7 +77,7 @@ class MessageHandler {
       { type: 'reply', reply: { id: 'option_2', title: 'Consultar' } },
       { type: 'reply', reply: { id: 'option_3', title: 'Ubicación' } },
     ]
-    await service.sendIntereactiveButtonds(to, menuTitle, buttons)
+    await service.sendInteractiveButtons(to, menuTitle, buttons)
   }
 
   // HANDLER MENU: Manejar opcion Elegida (del menu)
